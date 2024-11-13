@@ -3,23 +3,29 @@
 #include <stdio.h>
 
 char* int2str(int number) {
-    char* str = malloc(12);
-    int i = 10;
-    unsigned int abs_number = (number < 0) ? -number : number;
-    str[11] = '\0';
+    char* str = malloc(13);
+    
+    if (!str) {
+        return NULL;
+    }
+
+    int i = 12; 
+    unsigned int absolute = (number < 0) ? -number : number;
+
+    str[i] = '\0';
 
     if (number == 0) {
-        str[i--] = '0';
+        str[--i] = '0';
     } else {
-        while (abs_number > 0) {
-            str[i--] = (abs_number % 10) + '0';
-            abs_number /= 10;
-        }
-
-        if (number < 0) {
-            str[i--] = '-';
+        while (absolute > 0) {
+            str[--i] = absolute % 10 + '0';
+            absolute /= 10;
         }
     }
 
-    return &str[i + 1];
+    if (number < 0) {
+        str[--i] = '-';
+    }
+
+    return &str[i];
 }
